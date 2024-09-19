@@ -1,40 +1,41 @@
 package com.locati.webservice.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.locati.webservice.domain.enums.State;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 
 @Entity
-public class Category implements Serializable{
-
-	private static final long serialVersionUID = 1L;
+public class City implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID_CATEGORY")
+	@Column(name = "ID_CITY")
 	private Long id;
+	
 	private String name;
 	
-	@JsonBackReference
-	@ManyToMany(mappedBy = "categories")
-	private List<Product> products = new ArrayList<>();
+	private Integer state;
 	
-	public Category() {}
+	public City() {}
 	
-	public Category(Long id, String name) {
+	public City(Long id, String name, Integer state) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.state = state;
+	}
+	
+	public City(Long id, String name, State state) {
+		this(id, name, state.getCod());
 	}
 
 	public Long getId() {
@@ -52,13 +53,13 @@ public class Category implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public List<Product> getProducts() {
-		return products;
+
+	public State getState() {
+		return State.fromCode(state);
 	}
-	
-	public void setProducts(List<Product> products) {
-		this.products = products;
+
+	public void setState(State state) {
+		this.state = state.getCod();
 	}
 
 	@Override
@@ -74,10 +75,8 @@ public class Category implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Category other = (Category) obj;
+		City other = (City) obj;
 		return Objects.equals(id, other.id);
-	};
-	
-	
+	}
 	
 }

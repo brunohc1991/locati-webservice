@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.locati.webservice.domain.Category;
 import com.locati.webservice.repositories.CategoryRepository;
+import com.locati.webservice.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoryService {
@@ -15,7 +16,7 @@ public class CategoryService {
 	CategoryRepository repository;
 	
 	public Category findById(Long id) {
-		return repository.findById(id).orElse(null);
+		return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID: " + id + ". Tipo: " + Category.class.getName()));
 	}
 	
 	public List<Category> findAll() {
