@@ -13,7 +13,7 @@ import com.locati.webservice.domain.Client;
 import com.locati.webservice.services.ClientService;
 
 @RestController
-@RequestMapping(value = "/client")
+@RequestMapping(value = "/clients")
 public class ClientResource {
 	
 	@Autowired

@@ -3,6 +3,8 @@ package com.locati.webservice.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,6 +33,7 @@ public class Address implements Serializable{
 	private City city;
 	
 	@ManyToOne
+	@JsonBackReference
 	@JoinColumn(name = "ID_CLIENT")
 	private Client client;
 	
