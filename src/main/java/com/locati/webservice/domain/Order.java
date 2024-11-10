@@ -7,7 +7,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -36,12 +35,10 @@ public class Order implements Serializable{
 	private Date instant;
 	
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "order")
-	@JsonManagedReference
 	private Payment payment;
 	
 	@ManyToOne
 	@JoinColumn(name = "ID_CLIENT")
-	@JsonManagedReference
 	private Client client;
 	
 	@ManyToOne

@@ -7,8 +7,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.locati.webservice.domain.enums.ClientType;
 
 import jakarta.persistence.CollectionTable;
@@ -34,11 +33,10 @@ public class Client implements Serializable{
 	private Integer type;
 	
 	@OneToMany(mappedBy = "client")
-	@JsonManagedReference
 	private List<Address> address = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "client")
-	@JsonBackReference
+	@JsonIgnore
 	private List<Order> orders = new ArrayList<>();
 	
 	@ElementCollection

@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.locati.webservice.domain.enums.PaymentState;
 
 import jakarta.persistence.Entity;
@@ -29,11 +28,10 @@ public class Payment implements Serializable{
 	@OneToOne
 	@JoinColumn(name = "ID_ORDER")
 	@MapsId
-	@JsonBackReference
+	@JsonIgnore
 	private Order order;
 	
 	@OneToMany(mappedBy = "payment")
-	@JsonManagedReference
 	private List<Installment> installments = new ArrayList<>();
 	
 	public Payment() {}
