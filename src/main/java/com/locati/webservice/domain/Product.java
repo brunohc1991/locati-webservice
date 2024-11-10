@@ -2,9 +2,12 @@ package com.locati.webservice.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.locati.webservice.domain.enums.ProductType;
 
@@ -16,6 +19,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Product implements Serializable{
@@ -41,6 +45,10 @@ public class Product implements Serializable{
 	@JsonManagedReference
 	@JoinTable(name = "PRODUCT_CATEGORY", joinColumns = @JoinColumn(name = "ID_PRODUCT"), inverseJoinColumns = @JoinColumn(name = "ID_CATEGORY"))
 	private List<Category> categories = new ArrayList<>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "id.product")
+	private Set<OrderItem> itens = new HashSet<>();
 
 	public Product() {}
 	
@@ -56,6 +64,17 @@ public class Product implements Serializable{
 	
 	public Product(Long id, String name, Double price, ProductType type, Long inStock, Long minStock) {
 		this(id, name, price, type.getCod(), inStock, minStock);
+	}
+	
+	@JsonIgnore
+	public List<Order> getOrders() {
+		List<Order> orders = new ArrayList<>();
+		
+		for (OrderItem item : itens) {
+			orders.add(item.getOrder());
+		}
+		
+		return orders;
 	}
 
 	public Long getId() {
@@ -112,6 +131,14 @@ public class Product implements Serializable{
 
 	public void setMinStock(Long minStock) {
 		this.minStock = minStock;
+	}
+	
+	public Set<OrderItem> getItens() {
+		return itens;
+	}
+	
+	public void setItens(Set<OrderItem> itens) {
+		this.itens = itens;
 	}
 
 	@Override

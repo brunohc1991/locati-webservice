@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.locati.webservice.domain.enums.ClientType;
 
@@ -35,6 +36,10 @@ public class Client implements Serializable{
 	@OneToMany(mappedBy = "client")
 	@JsonManagedReference
 	private List<Address> address = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "client")
+	@JsonBackReference
+	private List<Order> orders = new ArrayList<>();
 	
 	@ElementCollection
 	@CollectionTable(name = "PHONE")
@@ -111,6 +116,14 @@ public class Client implements Serializable{
 		this.phones = phones;
 	}
 
+	public List<Order> getOrders() {
+		return orders;
+	}
+	
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
