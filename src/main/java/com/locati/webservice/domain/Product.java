@@ -40,6 +40,7 @@ public class Product implements Serializable{
 	
 	private Long minStock;
 	
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "PRODUCT_CATEGORY", joinColumns = @JoinColumn(name = "ID_PRODUCT"), inverseJoinColumns = @JoinColumn(name = "ID_CATEGORY"))
 	private List<Category> categories = new ArrayList<>();

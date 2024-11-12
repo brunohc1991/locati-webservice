@@ -2,6 +2,7 @@ package com.locati.webservice.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.locati.webservice.domain.Category;
+import com.locati.webservice.dto.CategoryDTO;
 import com.locati.webservice.services.CategoryService;
 
 @RestController
@@ -26,8 +28,10 @@ public class CategoryResource {
 	private CategoryService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Category>> findAll() {
-		return ResponseEntity.ok(service.findAll());
+	public ResponseEntity<List<CategoryDTO>> findAll() {
+		List<Category> category = service.findAll();
+		List<CategoryDTO> categoryDTO = category.stream().map(item -> new CategoryDTO(item)).collect(Collectors.toList());
+		return ResponseEntity.ok(categoryDTO);
 	}
 	
 	@GetMapping(value = "/{id}")
