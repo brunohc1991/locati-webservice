@@ -23,6 +23,7 @@ public class Category implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_CATEGORY")
 	private Long id;
+	
 	private String name;
 	
 	@JsonIgnore
