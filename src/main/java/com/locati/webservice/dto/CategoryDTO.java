@@ -2,7 +2,11 @@ package com.locati.webservice.dto;
 
 import java.io.Serializable;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.locati.webservice.domain.Category;
+
+import jakarta.validation.constraints.NotEmpty;
 
 public class CategoryDTO implements Serializable{
 	
@@ -10,6 +14,8 @@ public class CategoryDTO implements Serializable{
 
 	private Long id;
 	
+	@NotEmpty(message = "Preenchimento Obrigatório")
+	@Length(min = 5, max = 80)
 	private String name; 
 	
 	public CategoryDTO() {}

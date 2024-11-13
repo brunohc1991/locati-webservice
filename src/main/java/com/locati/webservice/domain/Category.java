@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.locati.webservice.dto.CategoryDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,6 +30,11 @@ public class Category implements Serializable{
 	private List<Product> products = new ArrayList<>();
 	
 	public Category() {}
+	
+	public Category(CategoryDTO dto) {
+		this.id = dto.getId();
+		this.name = dto.getName();
+	}
 	
 	public Category(Long id, String name) {
 		super();

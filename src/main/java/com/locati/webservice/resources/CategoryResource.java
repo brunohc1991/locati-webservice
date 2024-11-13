@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +21,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.locati.webservice.domain.Category;
 import com.locati.webservice.dto.CategoryDTO;
 import com.locati.webservice.services.CategoryService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/categories")
@@ -43,16 +44,16 @@ public class CategoryResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> insert(@RequestBody Category obj) {
-		obj = service.insert(obj);
+	public ResponseEntity<Void> insert(@Valid @RequestBody CategoryDTO objDto) {
+		Category obj = service.insert(objDto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody Category obj) {
-		obj.setId(id);
-		obj = service.update(obj);
+	public ResponseEntity<Void> update(@PathVariable Long id, @Valid  @RequestBody CategoryDTO objDto) {
+		objDto.setId(id);
+		service.update(objDto);
 		return ResponseEntity.noContent().build();
 	}
 
