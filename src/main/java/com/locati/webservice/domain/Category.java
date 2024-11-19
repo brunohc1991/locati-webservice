@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import com.locati.webservice.dto.CategoryDTO;
+import com.locati.webservice.domain.dto.CategoryDTO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -2,14 +2,18 @@ package com.locati.webservice.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.locati.webservice.domain.dto.ClientDTO;
+import com.locati.webservice.domain.dto.NewClientDTO;
 import com.locati.webservice.domain.enums.ClientType;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -32,7 +36,7 @@ public class Client implements Serializable{
 	private String cpfOrCnpj;
 	private Integer type;
 	
-	@OneToMany(mappedBy = "client")
+	@OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
 	private List<Address> address = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "client")
@@ -44,6 +48,12 @@ public class Client implements Serializable{
 	private Set<String> phones = new HashSet<>();
 	
 	public Client() {}
+	
+	public Client(ClientDTO dto) {
+		this.id = dto.getId();
+		this.name = dto.getName();
+		this.email = dto.getEmail();
+	}
 
 	public Client(Long id, String name, String email, String cpfOrCnpj, Integer type) {
 		super();
@@ -56,6 +66,25 @@ public class Client implements Serializable{
 	
 	public Client(Long id, String name, String email, String cpfOrCnpj, ClientType type) {
 		this(id, name, email, cpfOrCnpj, type.getCod());
+	}
+	
+	public Client(NewClientDTO dto) {
+		this.name = dto.getName();
+		this.email = dto.getEmail();
+		this.type = dto.getType();
+		this.cpfOrCnpj = dto.getCpfOrCnpj();
+		this.phones = new HashSet<String>(Arrays.asList(dto.getPhoneNumber01(), dto.getPhoneNumber02(), dto.getPhoneNumber03()));
+		
+		Address address = new Address();
+		address.setCity(new City(dto.getIdCity()));
+		address.setComplement(dto.getComplement());
+		address.setNeighborhood(dto.getNeighborhood());
+		address.setNumber(dto.getNumber());
+		address.setStreet(dto.getStreet());
+		address.setZipCode(dto.getZipCode());
+		address.setClient(this);
+		
+		this.address.add(address);
 	}
 
 	public Long getId() {

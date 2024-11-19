@@ -10,7 +10,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.locati.webservice.domain.Category;
-import com.locati.webservice.dto.CategoryDTO;
+import com.locati.webservice.domain.dto.CategoryDTO;
 import com.locati.webservice.repositories.CategoryRepository;
 import com.locati.webservice.services.exceptions.DataIntegrityException;
 import com.locati.webservice.services.exceptions.ObjectNotFoundException;
@@ -36,8 +36,9 @@ public class CategoryService {
 	}
 	
 	public Category update(CategoryDTO objDto) {
-		Category obj = new Category(objDto);
-		findById(obj.getId());
+		Category obj = findById(objDto.getId()); 
+		obj.setName(objDto.getName());
+		
 		return repository.save(obj);
 	}
 	

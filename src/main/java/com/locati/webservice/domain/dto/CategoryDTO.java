@@ -1,4 +1,4 @@
-package com.locati.webservice.dto;
+package com.locati.webservice.domain.dto;
 
 import java.io.Serializable;
 

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.locati.webservice.domain.Category;
-import com.locati.webservice.dto.CategoryDTO;
+import com.locati.webservice.domain.dto.CategoryDTO;
 import com.locati.webservice.services.CategoryService;
 
 import jakarta.validation.Valid;

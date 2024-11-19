@@ -27,6 +27,11 @@ public class City implements Serializable{
 	
 	public City() {}
 	
+	public City(Long id) {
+		this.id = id;
+	}
+
+	
 	public City(Long id, String name, Integer state) {
 		super();
 		this.id = id;

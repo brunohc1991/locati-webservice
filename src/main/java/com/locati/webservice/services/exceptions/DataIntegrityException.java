@@ -5,7 +5,7 @@ public class DataIntegrityException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 	
 	public DataIntegrityException(Class<?> c) {
-		super("Não é possível excluir "+ c.getName().split("\\.")[(c.getName().split("\\.").length) - 1] + ", pois existe vínculo com outros itens.");
+		super("Não é possível excluir "+ c.getName().split("\\.")[(c.getName().split("\\.").length) - 1] + ", pois possui vínculo.");
 	}
 	
 	public DataIntegrityException(String msg) {
