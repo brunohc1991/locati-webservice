@@ -5,6 +5,7 @@ import java.io.Serializable;
 import org.hibernate.validator.constraints.Length;
 
 import com.locati.webservice.services.validations.CPFouCNPJ;
+import com.locati.webservice.services.validations.EmailUnique;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -19,6 +20,7 @@ public class NewClientDTO implements Serializable{
 	
 	@Email
 	@NotEmpty
+	@EmailUnique
 	private String email;
 	
 	@NotEmpty
